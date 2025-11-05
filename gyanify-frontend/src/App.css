@@ -1,0 +1,152 @@
+/* gyanify-frontend/src/App.css */
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  background-color: #f4f7f6;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* This is what centers your app horizontally */
+  padding: 40px 20px;
+  box-sizing: border-box;
+}
+
+.app-container {
+  width: 100%; 
+  max-width: 900px;
+}
+
+header h1 {
+  color: #2a9d8f;
+  text-align: center;
+}
+
+.input-form {
+  background: #ffffff;
+  padding: 24px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  margin-bottom: 30px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  box-sizing: border-box; 
+}
+
+button {
+  background-color: #e76f51;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+button:hover:not(:disabled) {
+  background-color: #f4a261;
+}
+
+button:disabled {
+  background-color: #f4a261;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.error-message {
+  color: #e63946;
+  background: #ffe0e3;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.results-container {
+  /* This container will just hold the result card */
+}
+
+.result-card {
+  background: #ffffff;
+  padding: 0; /* Remove padding here */
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  overflow: hidden; /* Important for rounded corners on tabs */
+}
+
+.result-card h2 {
+  color: #2a9d8f;
+  border-bottom: 2px solid #e9c46a;
+  padding-bottom: 5px;
+}
+
+pre {
+  white-space: pre-wrap; 
+  word-wrap: break-word;
+  background: #fdfdfd;
+  padding: 15px;
+  border-radius: 5px;
+  border: 1px solid #eee;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.quiz-question {
+  border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+}
+
+.quiz-question ul {
+  list-style-type: none;
+  padding-left: 10px;
+}
+
+/* --- NEW TAB STYLES --- */
+.tab-buttons {
+  display: flex;
+  background-color: #f9f9f9;
+  border-bottom: 1px solid #ddd;
+}
+
+.tab-button {
+  padding: 15px 20px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-size: 16px;
+  font-weight: 500;
+  color: #555;
+  border-radius: 0;
+}
+
+.tab-button:hover {
+  background-color: #efefef;
+}
+
+.tab-button.active {
+  /* This is the style for the *selected* tab */
+  background-color: #ffffff;
+  color: #e76f51;
+  border-bottom: 3px solid #e76f51;
+}
+
+.tab-content {
+  /* This holds the actual content for the selected tab */
+  padding: 24px;
+}
