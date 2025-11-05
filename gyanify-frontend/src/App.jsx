@@ -4,38 +4,46 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import './App.css'; 
 
-// URL of Harsh's backend server
+// This is the URL of Harsh's backend server
 const API_URL = "http://127.0.0.1:8000/api/v1/generate/content";
 
 function App() {
-  // 1. --- React's "Memory" (called "State") ---
-  // We use 'useState' to store data that can change.
+  // --- 1. React's "Memory" (called "State") ---
   const [topic, setTopic] = useState("Photosynthesis");
   const [gradeLevel, setGradeLevel] = useState("9th Grade");
+  
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  
+  // For the final AI output
   const [lessonPlan, setLessonPlan] = useState("");
   const [quiz, setQuiz] = useState([]);
   const [worksheet, setWorksheet] = useState("");
+  
+  // --- NEW STATE FOR TABS ---
+  // This will store which tab is currently selected.
+  // We'll default it to 'lessonPlan'
+  const [activeTab, setActiveTab] = useState('lessonPlan'); 
 
   // --- 2. The API Call Function ---
-  // This function runs when the user clicks the "Generate" button
   const handleSubmit = async (e) => {
-    e.preventDefault(); // Stops the page from reloading
-    setIsLoading(true); // Show a "loading..." message
+    e.preventDefault(); 
+    setIsLoading(true); 
     setError(null);
     setLessonPlan("");
     setQuiz([]);
     setWorksheet("");
+    
+    // Set the default tab to show when results load
+    setActiveTab('lessonPlan'); 
 
     try {
-      // This is the "bridge" to the backend!
       const response = await axios.post(API_URL, {
         topic: topic,
         grade_level: gradeLevel 
       });
-
-      // The API call was a success! Save the response
+      
+      // Save the response data
       setLessonPlan(response.data.lesson_plan);
       setQuiz(response.data.quiz);
       setWorksheet(response.data.worksheet);
@@ -43,12 +51,11 @@ function App() {
     } catch (err) {
       setError("An error occurred. Is the backend server (uvicorn) running?");
     } finally {
-      setIsLoading(false); // Hide the "loading..." message
+      setIsLoading(false); 
     }
   };
 
   // --- 3. The HTML (called "JSX") ---
-  // This is what React will render on the page.
   return (
     <div className="app-container">
       <header>
@@ -78,39 +85,72 @@ function App() {
             {isLoading ? "Generating..." : "Generate Content"}
           </button>
         </form>
-
+        
         {/* Show an error message if one exists */}
         {error && <div className="error-message">{error}</div>}
-
-        {/* --- This is the Output Area --- */}
+        
+        {/* --- UPDATED RESULTS AREA WITH TABS --- */}
         <div className="results-container">
-
+          
+          {/* Only show the tabs *after* a lesson plan has been generated */}
           {lessonPlan && (
             <div className="result-card">
-              <h2>Lesson Plan</h2>
-              <pre>{lessonPlan}</pre> 
-            </div>
-          )}
+              {/* --- TAB BUTTONS --- */}
+              <div className="tab-buttons">
+                <button 
+                  className={`tab-button ${activeTab === 'lessonPlan' ? 'active' : ''}`}
+                  onClick={() => setActiveTab('lessonPlan')}
+                >
+                  Lesson Plan
+                </button>
+                <button 
+                  className={`tab-button ${activeTab === 'quiz' ? 'active' : ''}`}
+                  onClick={() => setActiveTab('quiz')}
+                >
+                  Quiz
+                </button>
+                <button 
+                  className={`tab-button ${activeTab === 'worksheet' ? 'active' : ''}`}
+                  onClick={() => setActiveTab('worksheet')}
+                >
+                  Worksheet
+                </button>
+              </div>
 
-          {quiz.length > 0 && (
-            <div className="result-card">
-              <h2>Quiz</h2>
-              {quiz.map((q, index) => (
-                <div key={index} className="quiz-question">
-                  <p><strong>{index + 1}. {q.question}</strong></p>
-                  <ul>
-                    {q.options.map((opt, i) => <li key={i}>{opt}</li>)}
-                  </ul>
-                  <p><em>Answer: {q.answer}</em></p>
-                </div>
-              ))}
-            </div>
-          )}
-
-          {worksheet && (
-            <div className="result-card">
-              <h2>Worksheet</h2>
-              <pre>{worksheet}</pre>
+              {/* --- TAB CONTENT --- */}
+              <div className="tab-content">
+                {/* Show Lesson Plan Content */}
+                {activeTab === 'lessonPlan' && (
+                  <div>
+                    <h2>Lesson Plan</h2>
+                    <pre>{lessonPlan}</pre> 
+                  </div>
+                )}
+                
+                {/* Show Quiz Content */}
+                {activeTab === 'quiz' && (
+                  <div>
+                    <h2>Quiz</h2>
+                    {quiz.map((q, index) => (
+                      <div key={index} className="quiz-question">
+                        <p><strong>{index + 1}. {q.question}</strong></p>
+                        <ul>
+                          {q.options.map((opt, i) => <li key={i}>{opt}</li>)}
+                        </ul>
+                        <p><em>Answer: {q.answer}</em></p>
+                      </div>
+                    ))}
+                  </div>
+                )}
+                
+                {/* Show Worksheet Content */}
+                {activeTab === 'worksheet' && (
+                  <div>
+                    <h2>Worksheet</h2>
+                    <pre>{worksheet}</pre>
+                  </div>
+                )}
+              </div>
             </div>
           )}
         </div>

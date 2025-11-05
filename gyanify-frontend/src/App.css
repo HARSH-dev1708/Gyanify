@@ -4,13 +4,16 @@ body {
     Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   background-color: #f4f7f6;
   color: #333;
-  margin: 0;
-  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* This is what centers your app horizontally */
+  padding: 40px 20px;
+  box-sizing: border-box;
 }
 
 .app-container {
+  width: 100%; 
   max-width: 900px;
-  margin: 0 auto;
 }
 
 header h1 {
@@ -41,7 +44,7 @@ header h1 {
   padding: 10px;
   border-radius: 5px;
   border: 1px solid #ddd;
-  box-sizing: border-box; /* Important! */
+  box-sizing: border-box; 
 }
 
 button {
@@ -53,11 +56,17 @@ button {
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+button:hover:not(:disabled) {
+  background-color: #f4a261;
 }
 
 button:disabled {
   background-color: #f4a261;
   cursor: not-allowed;
+  opacity: 0.7;
 }
 
 .error-message {
@@ -70,16 +79,15 @@ button:disabled {
 }
 
 .results-container {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 20px;
+  /* This container will just hold the result card */
 }
 
 .result-card {
   background: #ffffff;
-  padding: 24px;
+  padding: 0; /* Remove padding here */
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  overflow: hidden; /* Important for rounded corners on tabs */
 }
 
 .result-card h2 {
@@ -89,7 +97,7 @@ button:disabled {
 }
 
 pre {
-  white-space: pre-wrap; /* Makes text wrap */
+  white-space: pre-wrap; 
   word-wrap: break-word;
   background: #fdfdfd;
   padding: 15px;
@@ -107,4 +115,38 @@ pre {
 .quiz-question ul {
   list-style-type: none;
   padding-left: 10px;
+}
+
+/* --- NEW TAB STYLES --- */
+.tab-buttons {
+  display: flex;
+  background-color: #f9f9f9;
+  border-bottom: 1px solid #ddd;
+}
+
+.tab-button {
+  padding: 15px 20px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-size: 16px;
+  font-weight: 500;
+  color: #555;
+  border-radius: 0;
+}
+
+.tab-button:hover {
+  background-color: #efefef;
+}
+
+.tab-button.active {
+  /* This is the style for the *selected* tab */
+  background-color: #ffffff;
+  color: #e76f51;
+  border-bottom: 3px solid #e76f51;
+}
+
+.tab-content {
+  /* This holds the actual content for the selected tab */
+  padding: 24px;
 }
