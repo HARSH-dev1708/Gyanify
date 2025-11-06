@@ -1,113 +1,174 @@
 /* gyanify-frontend/src/App.css */
+/* This theme is based on the new Gyanify logo */
+
+/* 1. Define colors from the logo */
+:root {
+  --color-background: #0B192E; /* Dark Navy Blue */
+  --color-card: #162B4D;       /* Lighter Navy for cards */
+  --color-text: #F0F0F0;         /* Off-white */
+  --color-accent-blue: #33A1FF; /* Bright Blue from book */
+  --color-accent-orange: #FFB700; /* Orange/Yellow from spark */
+  --color-accent-orange-hover: #FFD700; /* Lighter Orange */
+  --color-error: #e63946;
+}
+
+/* 2. Style the main page */
+html, body, #root {
+  min-height: 100%;
+  margin: 0;
+}
+
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
     Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  background-color: #f4f7f6;
-  color: #333;
+  background-color: var(--color-background);
+  color: var(--color-text);
+  min-height: 100vh;
+  
   display: flex;
   flex-direction: column;
-  align-items: center; /* This is what centers your app horizontally */
+  align-items: center; 
   padding: 40px 20px;
-  box-sizing: border-box;
+  box-sizing: border-box; 
 }
 
 .app-container {
   width: 100%; 
-  max-width: 900px;
+  max-width: 900px; 
 }
 
 header h1 {
-  color: #2a9d8f;
+  /* Let's use the bright blue for the title! */
+  color: var(--color-accent-blue); 
   text-align: center;
+  font-size: 2.5em; /* Make it bigger */
 }
 
+/* 3. Style the Form Card */
 .input-form {
-  background: #ffffff;
+  background: var(--color-card);
   padding: 24px;
   border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  margin-bottom: 30px;
+  border: 1px solid var(--color-accent-blue);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  max-width: 600px;
+  margin: 30px auto; 
 }
 
 .form-group {
   margin-bottom: 15px;
+  text-align: left; 
 }
 
 .form-group label {
   display: block;
   font-weight: 600;
   margin-bottom: 5px;
+  color: var(--color-text);
 }
 
 .form-group input {
   width: 100%;
-  padding: 10px;
+  padding: 12px;
   border-radius: 5px;
-  border: 1px solid #ddd;
+  border: 1px solid var(--color-accent-blue);
+  background-color: var(--color-background);
+  color: var(--color-text);
+  font-size: 16px;
   box-sizing: border-box; 
 }
 
+/* 4. Style the Button (The Orange Spark!) */
 button {
-  background-color: #e76f51;
-  color: white;
+  background-color: var(--color-accent-orange);
+  color: #111; /* Dark text on bright button */
   padding: 12px 20px;
   border: none;
   border-radius: 5px;
   font-size: 16px;
-  font-weight: 600;
+  font-weight: 700; /* Bolder */
   cursor: pointer;
   transition: background-color 0.2s;
+  display: block;
+  width: 100%;
 }
 
 button:hover:not(:disabled) {
-  background-color: #f4a261;
+  background-color: var(--color-accent-orange-hover);
 }
 
 button:disabled {
-  background-color: #f4a261;
+  background-color: var(--color-accent-orange);
   cursor: not-allowed;
-  opacity: 0.7;
+  opacity: 0.6;
 }
 
-.error-message {
-  color: #e63946;
-  background: #ffe0e3;
-  padding: 10px;
-  border-radius: 5px;
-  margin-bottom: 20px;
-  text-align: center;
-}
-
+/* 5. Style the Results Card & Tabs */
 .results-container {
   /* This container will just hold the result card */
 }
 
 .result-card {
-  background: #ffffff;
-  padding: 0; /* Remove padding here */
+  background: var(--color-card);
   border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  overflow: hidden; /* Important for rounded corners on tabs */
+  border: 1px solid var(--color-accent-blue);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  overflow: hidden; 
+}
+
+.tab-buttons {
+  display: flex;
+  background-color: var(--color-background);
+  border-bottom: 1px solid var(--color-accent-blue);
+}
+
+.tab-button {
+  padding: 15px 20px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-size: 16px;
+  font-weight: 600;
+  color: #aaa; /* Inactive tabs are grey */
+  border-radius: 0;
+  border-bottom: 3px solid transparent; /* Placeholder border */
+}
+
+.tab-button:hover {
+  background-color: #2a416a; /* Slightly lighter card color */
+}
+
+.tab-button.active {
+  /* Active tab uses the orange spark color */
+  background-color: var(--color-card);
+  color: var(--color-accent-orange);
+  border-bottom: 3px solid var(--color-accent-orange);
+}
+
+.tab-content {
+  padding: 24px;
 }
 
 .result-card h2 {
-  color: #2a9d8f;
-  border-bottom: 2px solid #e9c46a;
+  color: var(--color-accent-blue);
+  border-bottom: 2px solid var(--color-accent-blue);
   padding-bottom: 5px;
 }
 
+/* 6. Style the content blocks */
 pre {
   white-space: pre-wrap; 
   word-wrap: break-word;
-  background: #fdfdfd;
+  background: #0A1629; /* Even darker for contrast */
   padding: 15px;
   border-radius: 5px;
-  border: 1px solid #eee;
+  border: 1px solid var(--color-accent-blue);
+  color: var(--color-text);
   font-family: 'Courier New', Courier, monospace;
 }
 
 .quiz-question {
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--color-accent-blue);
   padding-bottom: 10px;
   margin-bottom: 10px;
 }
@@ -117,36 +178,13 @@ pre {
   padding-left: 10px;
 }
 
-/* --- NEW TAB STYLES --- */
-.tab-buttons {
-  display: flex;
-  background-color: #f9f9f9;
-  border-bottom: 1px solid #ddd;
-}
-
-.tab-button {
-  padding: 15px 20px;
-  cursor: pointer;
-  background: none;
-  border: none;
-  font-size: 16px;
-  font-weight: 500;
-  color: #555;
-  border-radius: 0;
-}
-
-.tab-button:hover {
-  background-color: #efefef;
-}
-
-.tab-button.active {
-  /* This is the style for the *selected* tab */
-  background-color: #ffffff;
-  color: #e76f51;
-  border-bottom: 3px solid #e76f51;
-}
-
-.tab-content {
-  /* This holds the actual content for the selected tab */
-  padding: 24px;
+/* 7. Error Message */
+.error-message {
+  color: white;
+  background: var(--color-error);
+  padding: 10px;
+  border-radius: 5px;
+  text-align: center;
+  max-width: 600px;
+  margin: 20px auto;
 }
